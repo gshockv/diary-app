@@ -8,14 +8,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.gshockv.dairyapp.ui.screen.auth.AuthScreen
+import com.gshockv.dairyapp.ui.screen.home.HomeScreen
 
 @Composable
 fun SetupNavGraph(startDestination: String, navController: NavHostController) {
   NavHost(
     startDestination = startDestination,
-    navController = navController) {
+    navController = navController
+  ) {
     authRoute()
-    homeRoute()
+    homeRoute(
+      navigateToWrite = {
+        navController.navigate(AppScreen.Write.route)
+      }
+    )
     writeRoute()
   }
 }
@@ -30,9 +36,16 @@ private fun NavGraphBuilder.authRoute() {
   }
 }
 
-private fun NavGraphBuilder.homeRoute() {
+private fun NavGraphBuilder.homeRoute(
+  navigateToWrite: () -> Unit
+) {
   composable(route = AppScreen.Home.route) {
-    // TODO: Implement me...
+    HomeScreen(
+      onDateFilterClick = {
+        TODO("Implement me")
+      },
+      navigateToWrite = navigateToWrite
+    )
   }
 }
 

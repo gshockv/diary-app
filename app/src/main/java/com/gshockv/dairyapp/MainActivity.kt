@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         val navController = rememberNavController()
         SetupNavGraph(
           navController = navController,
-          startDestination = AppScreen.Authentication.route
+          startDestination = AppScreen.Home.route
         )
       }
     }

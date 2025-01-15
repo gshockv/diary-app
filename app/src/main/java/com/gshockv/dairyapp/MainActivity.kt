@@ -15,6 +15,9 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.rememberNavController
+import com.gshockv.dairyapp.navigation.AppScreen
+import com.gshockv.dairyapp.navigation.SetupNavGraph
 import com.gshockv.dairyapp.ui.theme.DairyAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,21 +27,11 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       DairyAppTheme {
-        Surface(modifier = Modifier
-          .fillMaxSize()
-          .systemBarsPadding()
-        ) {
-          Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-          ) {
-            Text(
-              text = "Dairy App",
-              textAlign = TextAlign.Center,
-              fontWeight = FontWeight.Light
-            )
-          }
-        }
+        val navController = rememberNavController()
+        SetupNavGraph(
+          navController = navController,
+          startDestination = AppScreen.Authentication.route
+        )
       }
     }
   }

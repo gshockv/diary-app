@@ -2,7 +2,9 @@ package com.gshockv.dairyapp.ui.screen.auth
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,7 +19,9 @@ fun AuthScreen(
   modifier: Modifier = Modifier
 ) {
   Scaffold(
-    modifier = modifier.systemBarsPadding()
+    modifier = modifier
+      .background(MaterialTheme.colorScheme.surface)
+      .systemBarsPadding()
   ) {
     AuthContent(
       loadingState = loadingState,
@@ -25,6 +29,7 @@ fun AuthScreen(
     )
   }
 }
+
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

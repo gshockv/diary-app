@@ -25,7 +25,6 @@ private fun NavGraphBuilder.authRoute() {
     AuthScreen(
       loadingState = false,
       onButtonClicked = {
-
       }
     )
   }

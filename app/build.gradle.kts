@@ -4,7 +4,7 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
-  //alias(libs.plugins.gms)
+  alias(libs.plugins.gms)
   alias(libs.plugins.ksp)
   alias(libs.plugins.hilt)
 }
@@ -48,7 +48,7 @@ dependencies {
   // ui
   implementation(platform(libs.compose.bom))
   implementation(libs.bundles.compose)
-  implementation(libs.bundles.extraUi)
+  implementation(libs.splash.screen)
 
   // hilt
   implementation(libs.bundles.hilt)
@@ -59,7 +59,7 @@ dependencies {
   ksp(libs.room.compiler)
 
   // firebase
-  implementation(libs.bundles.firebaseKtx)
+  implementation(platform(libs.firebase.bom))
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
@@ -69,6 +69,4 @@ dependencies {
 
   debugImplementation(libs.compose.ui.tooling)
   debugImplementation(libs.compose.ui.test.manifest)
-
-  coreLibraryDesugaring(libs.desugar.jdk.libs)
 }

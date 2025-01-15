@@ -1,6 +1,5 @@
 [versions]
 agp = "8.8.0"
-desugar_jdk_libs = "2.1.4"
 kotlin = "2.0.21"
 ksp = "2.0.21-1.0.28"
 
@@ -18,18 +17,12 @@ compose-hilt-navigation = "1.2.0"
 compose-lifecycle = "2.8.7"
 
 splash-screen = "1.0.1"
-coil-compose = "2.2.2"
-pager-accompanist = "0.27.0"
-message-bar-compose = "1.0.8"
-one-tap-compose = "1.0.0"
 
 room = "2.6.1"
 hilt = "2.52"
 
+firebase-bom = "33.7.0"
 gms = "4.4.2"
-
-firebase-auth = "23.1.0"
-firebase-storage = "21.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -48,10 +41,6 @@ compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4
 compose-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "compose-lifecycle" }
 
 splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash-screen" }
-coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
-pager-accompanist = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "pager-accompanist" }
-message-bar-compose = { group = "com.github.stevdza-san", name = "MessageBarCompose", version.ref = "message-bar-compose" }
-one-tap-compose = { group = "com.github.stevdza-san", name = "OneTapCompose", version.ref = "one-tap-compose" }
 
 hilt-core = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
@@ -61,14 +50,11 @@ room-compiler = { group ="androidx.room", name = "room-compiler", version.ref = 
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 
-firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebase-auth" }
-firebase-storage-kts = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebase-storage" }
-
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit-version" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 
-desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 
 [bundles]
 androidX = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx"]
@@ -78,13 +64,8 @@ compose = [
     "compose-navigation", "compose-material3", "compose-lifecycle-runtime"
 ]
 
-extraUi = [
-    "splash-screen", "coil-compose", "pager-accompanist", "message-bar-compose", "one-tap-compose"
-]
-
 hilt = ["hilt-core", "hilt-navigation-compose"]
 room = ["room-runtime", "room-ktx"]
-firebaseKtx = ["firebase-auth-ktx", "firebase-storage-kts"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

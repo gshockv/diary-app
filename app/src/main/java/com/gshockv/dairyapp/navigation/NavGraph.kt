@@ -7,6 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.gshockv.dairyapp.ui.screen.auth.AuthScreen
 
 @Composable
 fun SetupNavGraph(startDestination: String, navController: NavHostController) {
@@ -21,7 +22,12 @@ fun SetupNavGraph(startDestination: String, navController: NavHostController) {
 
 private fun NavGraphBuilder.authRoute() {
   composable(route = AppScreen.Authentication.route) {
-    // TODO: Implement me...
+    AuthScreen(
+      loadingState = false,
+      onButtonClicked = {
+
+      }
+    )
   }
 }
 

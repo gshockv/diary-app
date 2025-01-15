@@ -83,7 +83,7 @@ private val darkScheme = darkColorScheme(
 )
 
 @Composable
-fun DairyAppTheme(
+fun DiaryAppTheme(
   darkTheme: Boolean = isSystemInDarkTheme(),
   content: @Composable () -> Unit
 ) {

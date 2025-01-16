@@ -2,6 +2,7 @@ package com.gshockv.dairyapp.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.gshockv.dairyapp.ui.component.galleryTestImages
 import java.time.OffsetDateTime
 
 @Entity(tableName = "diary")
@@ -13,3 +14,6 @@ data class Diary(
   val images: List<String>,
   val date: OffsetDateTime
 )
+
+val Diary.testImages: List<Int>
+  get() = galleryTestImages

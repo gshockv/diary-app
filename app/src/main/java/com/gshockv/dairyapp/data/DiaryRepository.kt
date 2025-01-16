@@ -1,15 +1,29 @@
 package com.gshockv.dairyapp.data
 
+import com.gshockv.dairyapp.util.RequestState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.time.OffsetDateTime
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import java.time.LocalDate
+import java.time.LocalDateTime
 import javax.inject.Inject
+
+typealias Diaries = RequestState<Map<LocalDate, List<Diary>>>
 
 class DiaryRepository @Inject constructor(private val diaryDao: DiaryDao) {
 
-  fun observeAll(): Flow<List<Diary>> {
+  fun observeAll(): Flow<Diaries> {
+    return flowOf(testDiaries())
+      .map { diary ->
+        diary.groupBy { it.date.toLocalDate() }
+      }
+      .map {
+        RequestState.Success(data = it)
+      }
+
     //return diaryDao.observeAll()
-    return MutableStateFlow(testDiaries())
   }
 }
 
@@ -22,7 +36,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Happy,
     images = listOf(),
-    date = OffsetDateTime.now()
+    date = LocalDateTime.now()
   ),
   Diary(
     id = 2,
@@ -32,7 +46,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Angry,
     images = listOf(),
-    date = OffsetDateTime.now()
+    date = LocalDateTime.now()
   ),
   Diary(
     id = 3,
@@ -42,7 +56,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Calm,
     images = listOf(),
-    date = OffsetDateTime.now()
+    date = LocalDateTime.now()
   ),
   Diary(
     id = 4,
@@ -52,7 +66,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Happy,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(1)
+    date = LocalDateTime.now().minusDays(1)
   ),
   Diary(
     id = 5,
@@ -62,7 +76,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Mysterious,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(2)
+    date = LocalDateTime.now().minusDays(2)
   ),
   Diary(
     id = 6,
@@ -72,7 +86,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Lonely,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(2)
+    date = LocalDateTime.now().minusDays(2)
   ),
   Diary(
     id = 7,
@@ -82,7 +96,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Romantic,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(2)
+    date = LocalDateTime.now().minusDays(2)
   ),
   Diary(
     id = 8,
@@ -92,7 +106,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Depressed,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(3)
+    date = LocalDateTime.now().minusDays(3)
   ),
   Diary(
     id = 9,
@@ -102,7 +116,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Tense,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(3)
+    date = LocalDateTime.now().minusDays(3)
   ),
   Diary(
     id = 10,
@@ -112,7 +126,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Calm,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(4)
+    date = LocalDateTime.now().minusDays(4)
   ),
   Diary(
     id = 11,
@@ -122,7 +136,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Disappointed,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(4)
+    date = LocalDateTime.now().minusDays(4)
   ),
   Diary(
     id = 12,
@@ -132,7 +146,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Happy,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(4)
+    date = LocalDateTime.now().minusDays(4)
   ),
   Diary(
     id = 13,
@@ -142,7 +156,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Romantic,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(5)
+    date = LocalDateTime.now().minusDays(5)
   ),
   Diary(
     id = 14,
@@ -152,7 +166,7 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Shameful,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(5)
+    date = LocalDateTime.now().minusDays(5)
   ),
   Diary(
     id = 15,
@@ -162,6 +176,6 @@ private fun testDiaries() = listOf(
         "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
     mood = Mood.Shameful,
     images = listOf(),
-    date = OffsetDateTime.now().minusDays(10)
+    date = LocalDateTime.now().minusDays(10)
   )
 )

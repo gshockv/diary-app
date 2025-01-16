@@ -9,6 +9,7 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
+import java.time.LocalDateTime
 import java.time.OffsetDateTime
 
 class DairyDaoTest {
@@ -38,7 +39,7 @@ class DairyDaoTest {
       id = 1,
       title = "Test Diary",
       description = "Lorem ipsum...",
-      date = OffsetDateTime.now(),
+      date = LocalDateTime.now(),
       images = listOf("image1.png", "image2.png", "image3.png"),
       mood = Mood.Happy
     )
@@ -57,7 +58,7 @@ class DairyDaoTest {
       id = 1,
       title = "Test Diary",
       description = "Lorem ipsum...",
-      date = OffsetDateTime.now(),
+      date = LocalDateTime.now(),
       images = listOf("image1.png", "image2.png", "image3.png"),
       mood = Mood.Happy
     )
@@ -74,7 +75,7 @@ class DairyDaoTest {
       id = 1,
       title = "Test Diary",
       description = "Lorem ipsum...",
-      date = OffsetDateTime.now(),
+      date = LocalDateTime.now(),
       images = listOf("image1.png", "image2.png", "image3.png"),
       mood = Mood.Happy
     )
@@ -96,7 +97,7 @@ class DairyDaoTest {
       id = 1,
       title = "Test Diary",
       description = "Lorem ipsum...",
-      date = OffsetDateTime.now(),
+      date = LocalDateTime.now(),
       images = listOf("image1.png", "image2.png", "image3.png"),
       mood = Mood.Happy
     )

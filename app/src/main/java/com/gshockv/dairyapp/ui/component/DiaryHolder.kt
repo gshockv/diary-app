@@ -41,10 +41,8 @@ import com.gshockv.dairyapp.data.Mood
 import com.gshockv.dairyapp.data.testImages
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 import com.gshockv.dairyapp.ui.theme.Elevation
-import java.text.SimpleDateFormat
-import java.time.OffsetDateTime
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 
 @Composable
 fun DiaryHolder(
@@ -130,7 +128,7 @@ fun DiaryHolder(
 @Composable
 private fun DiaryHeader(
   mood: Mood,
-  time: OffsetDateTime,
+  time: LocalDateTime,
   modifier: Modifier = Modifier
 ) {
   Row(
@@ -198,7 +196,7 @@ private fun PreviewDiaryHolder_LightTheme() {
               "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
           mood = Mood.Happy,
           images = listOf(),
-          date = OffsetDateTime.now()
+          date = LocalDateTime.now()
         ),
         onClick = { }
       )
@@ -220,7 +218,7 @@ private fun PreviewDiaryHolder_DarkTheme() {
               "nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis ",
           mood = Mood.Happy,
           images = listOf(),
-          date = OffsetDateTime.now()
+          date = LocalDateTime.now()
         ),
         onClick = { }
       )

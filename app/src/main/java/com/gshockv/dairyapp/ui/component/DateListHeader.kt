@@ -2,9 +2,11 @@ package com.gshockv.dairyapp.ui.component
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -28,6 +30,8 @@ fun DateListHeader(
   Row(
     verticalAlignment = Alignment.CenterVertically,
     modifier = modifier
+      .padding(vertical = 14.dp)
+      .background(MaterialTheme.colorScheme.surface)
   ) {
     Column(
       horizontalAlignment = Alignment.End

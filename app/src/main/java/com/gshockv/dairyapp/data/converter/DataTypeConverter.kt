@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.gshockv.dairyapp.data.Mood
-import java.time.OffsetDateTime
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class DataTypeConverter {
@@ -22,14 +22,14 @@ class DataTypeConverter {
   }
 
   @TypeConverter
-  fun fromOffsetDateTimeToString(value: OffsetDateTime?): String? {
+  fun fromLocalDateTimeToString(value: LocalDateTime?): String? {
     return value?.format(dateTimeFormatter)
   }
 
   @TypeConverter
-  fun toOffsetDateTime(value: String?): OffsetDateTime? {
+  fun toLocalDateTime(value: String?): LocalDateTime? {
     return value?.let {
-      OffsetDateTime.parse(it, dateTimeFormatter)
+      LocalDateTime.parse(it, dateTimeFormatter)
     }
   }
 

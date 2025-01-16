@@ -1,40 +1,42 @@
 package com.gshockv.dairyapp.ui.screen.home
 
-import android.annotation.SuppressLint
 import android.content.res.Configuration
-import android.util.Log
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.gshockv.dairyapp.R
+import com.gshockv.dairyapp.data.Diaries
 import com.gshockv.dairyapp.data.Diary
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
+import com.gshockv.dairyapp.util.RequestState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import java.time.LocalDate
 
 @Composable
 fun HomeScreen(
-  viewModel: HomeViewModel = hiltViewModel(),
+  diariesState: StateFlow<Diaries>,
   onDateFilterClick: () -> Unit,
   navigateToWrite: () -> Unit,
   modifier: Modifier = Modifier
 ) {
-
-  val records = viewModel.uiState.collectAsState()
+  val state = diariesState.collectAsState()
 
   Scaffold(
     modifier = modifier.fillMaxSize(),
@@ -58,13 +60,28 @@ fun HomeScreen(
       )
     }
   ) { innerPadding ->
-    LazyColumn(
-      modifier = Modifier.padding(innerPadding)
-    ) {
-      items(records.value) { record ->
-        Log.d("HomeScreen", "${record.id}:${record.title}(${record.mood})")
-        DiaryItem(diary = record)
+
+    when (state.value) {
+      is RequestState.Success -> {
+        HomeContent(
+          diaryNotes = (state.value as RequestState.Success<Map<LocalDate, List<Diary>>>).data,
+          onClick = {},
+          modifier = Modifier
+            .fillMaxSize()
+            .padding(innerPadding)
+        )
       }
+      is RequestState.Loading -> {
+        Box(
+          modifier = Modifier.fillMaxSize(),
+          contentAlignment = Alignment.Center
+        ) {
+          CircularProgressIndicator()
+        }
+      }
+      is RequestState.Idle -> {
+      }
+      else -> {}
     }
   }
 }
@@ -91,6 +108,7 @@ private fun DiaryItem(
 private fun PreviewHomeScreen_LightTheme() {
   DiaryAppTheme {
     HomeScreen(
+      diariesState = MutableStateFlow(RequestState.Idle),
       onDateFilterClick = {},
       navigateToWrite = {}
     )
@@ -102,6 +120,7 @@ private fun PreviewHomeScreen_LightTheme() {
 private fun PreviewHomeScreen_DarkTheme() {
   DiaryAppTheme {
     HomeScreen(
+      MutableStateFlow(RequestState.Idle),
       onDateFilterClick = {},
       navigateToWrite = {}
     )

@@ -13,16 +13,27 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+  var keepSplashOpened = true
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    installSplashScreen()
+
+    installSplashScreen().setKeepOnScreenCondition {
+      keepSplashOpened
+    }
+
     enableEdgeToEdge()
+
     setContent {
       DiaryAppTheme {
         val navController = rememberNavController()
         SetupNavGraph(
           navController = navController,
-          startDestination = AppScreen.Home.route
+          startDestination = AppScreen.Home.route,
+          onDataLoaded = {
+            keepSplashOpened = false
+          }
         )
       }
     }

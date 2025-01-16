@@ -39,7 +39,8 @@ class DairyDaoTest {
       title = "Test Diary",
       description = "Lorem ipsum...",
       date = OffsetDateTime.now(),
-      images = listOf("image1.png", "image2.png", "image3.png")
+      images = listOf("image1.png", "image2.png", "image3.png"),
+      mood = Mood.Happy
     )
 
     database.diaryDao().upsert(diary)
@@ -57,7 +58,8 @@ class DairyDaoTest {
       title = "Test Diary",
       description = "Lorem ipsum...",
       date = OffsetDateTime.now(),
-      images = listOf("image1.png", "image2.png", "image3.png")
+      images = listOf("image1.png", "image2.png", "image3.png"),
+      mood = Mood.Happy
     )
     database.diaryDao().upsert(diary)
 
@@ -73,7 +75,8 @@ class DairyDaoTest {
       title = "Test Diary",
       description = "Lorem ipsum...",
       date = OffsetDateTime.now(),
-      images = listOf("image1.png", "image2.png", "image3.png")
+      images = listOf("image1.png", "image2.png", "image3.png"),
+      mood = Mood.Happy
     )
     database.diaryDao().upsert(diary)
 
@@ -94,7 +97,8 @@ class DairyDaoTest {
       title = "Test Diary",
       description = "Lorem ipsum...",
       date = OffsetDateTime.now(),
-      images = listOf("image1.png", "image2.png", "image3.png")
+      images = listOf("image1.png", "image2.png", "image3.png"),
+      mood = Mood.Happy
     )
     database.diaryDao().upsert(diary)
     assertNotNull(database.diaryDao().load(diaryId = diary.id))

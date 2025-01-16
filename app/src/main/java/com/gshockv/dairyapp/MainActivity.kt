@@ -9,7 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import com.gshockv.dairyapp.navigation.AppScreen
 import com.gshockv.dairyapp.navigation.SetupNavGraph
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

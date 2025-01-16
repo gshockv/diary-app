@@ -61,6 +61,8 @@ dependencies {
   // firebase
   implementation(platform(libs.firebase.bom))
 
+  implementation(libs.gson)
+
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)

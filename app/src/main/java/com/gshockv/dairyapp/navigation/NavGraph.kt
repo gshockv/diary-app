@@ -1,5 +1,6 @@
 package com.gshockv.dairyapp.navigation
 
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -85,18 +86,22 @@ private fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
       defaultValue = null
     })
   ) {
+
+    val moodPagerState = rememberPagerState(pageCount = {
+      Mood.entries.size
+    })
+
+
     WriteScreen(
-//      selectedDiary = Diary(
-//        id = 42,
-//        title = "Test Diary",
-//        description = "Lorem ipsum...",
-//        mood = Mood.Calm,
-//        images = listOf(),
-//        date = LocalDateTime.now()
-//      ),
-
-      selectedDiary = null,
-
+      moodPagerState = moodPagerState,
+      selectedDiary = Diary(
+        id = 42,
+        title = "Test Diary",
+        description = "Lorem ipsum...",
+        mood = Mood.Calm,
+        images = listOf(),
+        date = LocalDateTime.now()
+      ),
       onDeleteConfirmed = {},
       onBackPressed = onBackPressed
     )

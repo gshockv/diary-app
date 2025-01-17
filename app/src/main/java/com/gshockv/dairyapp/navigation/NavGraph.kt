@@ -9,10 +9,14 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.gshockv.dairyapp.data.Diary
+import com.gshockv.dairyapp.data.Mood
 import com.gshockv.dairyapp.ui.screen.auth.AuthScreen
 import com.gshockv.dairyapp.ui.screen.home.HomeScreen
 import com.gshockv.dairyapp.ui.screen.home.HomeViewModel
+import com.gshockv.dairyapp.ui.screen.write.WriteScreen
 import com.gshockv.dairyapp.util.RequestState
+import java.time.LocalDateTime
 
 @Composable
 fun SetupNavGraph(
@@ -30,7 +34,11 @@ fun SetupNavGraph(
       },
       onDataLoaded = onDataLoaded
     )
-    writeRoute()
+    writeRoute(
+      onBackPressed = {
+        navController.popBackStack()
+      }
+    )
   }
 }
 
@@ -68,7 +76,7 @@ private fun NavGraphBuilder.homeRoute(
   }
 }
 
-private fun NavGraphBuilder.writeRoute() {
+private fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
   composable(
     route = AppScreen.Write.route,
     arguments = listOf(navArgument(WRITE_SCREEN_ARGUMENT_KEY) {
@@ -77,6 +85,20 @@ private fun NavGraphBuilder.writeRoute() {
       defaultValue = null
     })
   ) {
-    // TODO: Implement me...
+    WriteScreen(
+//      selectedDiary = Diary(
+//        id = 42,
+//        title = "Test Diary",
+//        description = "Lorem ipsum...",
+//        mood = Mood.Calm,
+//        images = listOf(),
+//        date = LocalDateTime.now()
+//      ),
+
+      selectedDiary = null,
+
+      onDeleteConfirmed = {},
+      onBackPressed = onBackPressed
+    )
   }
 }

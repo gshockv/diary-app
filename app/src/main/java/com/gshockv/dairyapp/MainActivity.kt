@@ -6,15 +6,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.gshockv.dairyapp.navigation.AppScreen
-import com.gshockv.dairyapp.navigation.SetupNavGraph
+import com.gshockv.dairyapp.navigation.Main
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-  var keepSplashOpened = true
+  private var keepSplashOpened = true
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -28,9 +27,8 @@ class MainActivity : ComponentActivity() {
     setContent {
       DiaryAppTheme {
         val navController = rememberNavController()
-        SetupNavGraph(
+        Main(
           navController = navController,
-          startDestination = AppScreen.Home.route,
           onDataLoaded = {
             keepSplashOpened = false
           }

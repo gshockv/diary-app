@@ -1,37 +1,53 @@
 package com.gshockv.dairyapp.navigation
 
-import androidx.compose.foundation.pager.rememberPagerState
+import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import com.gshockv.dairyapp.data.Diary
-import com.gshockv.dairyapp.data.Mood
+import androidx.navigation.toRoute
 import com.gshockv.dairyapp.ui.screen.auth.AuthScreen
 import com.gshockv.dairyapp.ui.screen.home.HomeScreen
-import com.gshockv.dairyapp.ui.screen.home.HomeViewModel
 import com.gshockv.dairyapp.ui.screen.write.WriteScreen
-import com.gshockv.dairyapp.util.RequestState
-import java.time.LocalDateTime
+import kotlinx.serialization.Serializable
+
+@Serializable
+object AuthRoute
+
+@Serializable
+object HomeRoute
+
+@Serializable
+data class WriteRoute(val id: Int = 0)
 
 @Composable
-fun SetupNavGraph(
-  startDestination: String, navController: NavHostController,
+fun Main(
+  navController: NavHostController,
+  onDataLoaded: () -> Unit
+) {
+  SetupNavGraph(
+    navController = navController,
+    onDataLoaded = onDataLoaded
+  )
+}
+
+@Composable
+private fun SetupNavGraph(
+  navController: NavHostController,
   onDataLoaded: () -> Unit
 ) {
   NavHost(
-    startDestination = startDestination,
+    startDestination = HomeRoute,
     navController = navController
   ) {
     authRoute()
     homeRoute(
-      navigateToWrite = {
-        navController.navigate(AppScreen.Write.route)
+      openNewDiaryEditor = {
+        navController.navigate(WriteRoute(id = 0))
+      },
+      openDiaryForEdit = {
+        navController.navigate(WriteRoute(id = it))
       },
       onDataLoaded = onDataLoaded
     )
@@ -44,64 +60,34 @@ fun SetupNavGraph(
 }
 
 private fun NavGraphBuilder.authRoute() {
-  composable(route = AppScreen.Authentication.route) {
+  composable<AuthRoute> {
     AuthScreen(
       loadingState = false,
-      onButtonClicked = {
-      }
+      onButtonClicked = { }
     )
   }
 }
 
 private fun NavGraphBuilder.homeRoute(
-  navigateToWrite: () -> Unit,
+  openNewDiaryEditor: () -> Unit,
+  openDiaryForEdit: (Int) -> Unit,
   onDataLoaded: () -> Unit
 ) {
-  composable(route = AppScreen.Home.route) {
-    val viewModel: HomeViewModel = hiltViewModel()
-    val diariesState = viewModel.diariesState
-
-    LaunchedEffect(key1 = diariesState) {
-      if (diariesState.value !is RequestState.Loading) {
-        onDataLoaded()
-      }
-    }
-
+  composable<HomeRoute> {
     HomeScreen(
-      diariesState = diariesState,
-      onDateFilterClick = {
-        TODO("Implement me")
-      },
-      navigateToWrite = navigateToWrite
+      openNewDiaryEditor = openNewDiaryEditor,
+      openDiaryForEdit = openDiaryForEdit,
+      onDataLoaded = onDataLoaded
     )
   }
 }
 
 private fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
-  composable(
-    route = AppScreen.Write.route,
-    arguments = listOf(navArgument(WRITE_SCREEN_ARGUMENT_KEY) {
-      type = NavType.StringType
-      nullable = true
-      defaultValue = null
-    })
-  ) {
-
-    val moodPagerState = rememberPagerState(pageCount = {
-      Mood.entries.size
-    })
-
+  composable<WriteRoute> { backStackEntry ->
+    val route: WriteRoute = backStackEntry.toRoute()
+    Log.d("NAV", "ID for edit = ${route.id}")
 
     WriteScreen(
-      moodPagerState = moodPagerState,
-      selectedDiary = Diary(
-        id = 42,
-        title = "Test Diary",
-        description = "Lorem ipsum...",
-        mood = Mood.Calm,
-        images = listOf(),
-        date = LocalDateTime.now()
-      ),
       onDeleteConfirmed = {},
       onBackPressed = onBackPressed
     )

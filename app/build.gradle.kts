@@ -4,7 +4,7 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
-  alias(libs.plugins.gms)
+  alias(libs.plugins.kotlin.serialization)
   alias(libs.plugins.ksp)
   alias(libs.plugins.hilt)
 }
@@ -58,9 +58,7 @@ dependencies {
   implementation(libs.bundles.room)
   ksp(libs.room.compiler)
 
-  // firebase
-  implementation(platform(libs.firebase.bom))
-
+  implementation(libs.kotlinx.serialization.json)
   implementation(libs.gson)
 
   testImplementation(libs.junit)

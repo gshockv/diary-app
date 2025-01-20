@@ -20,7 +20,7 @@ import java.time.LocalDate
 @Composable
 fun HomeContent(
   diaryNotes: Map<LocalDate, List<Diary>>,
-  onClick: (Int) -> Unit,
+  openDiary: (Int) -> Unit,
   modifier: Modifier = Modifier
 ) {
   if (diaryNotes.isNotEmpty()) {
@@ -38,7 +38,7 @@ fun HomeContent(
         ) {
           DiaryHolder(
             diary = it,
-            onClick = onClick
+            onClick = openDiary
           )
         }
       }
@@ -55,7 +55,7 @@ private fun PreviewHomeContent_LightTheme() {
     Surface {
       HomeContent(
         diaryNotes = emptyMap(),
-        onClick = { }
+        openDiary = { }
       )
     }
   }

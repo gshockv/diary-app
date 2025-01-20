@@ -69,7 +69,9 @@ fun DiaryHolder(
         interactionSource = remember {
           MutableInteractionSource()
         }
-      ) { onClick(diary.id) }
+      ) {
+        onClick(diary.id)
+      }
   ) {
     Spacer(modifier = Modifier.width(14.dp))
     Surface(

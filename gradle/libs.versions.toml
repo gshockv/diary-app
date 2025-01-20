@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.0"
 kotlin = "2.0.21"
+kotlin-serialization = "2.0.21"
 ksp = "2.0.21-1.0.28"
 
 core-ktx = "1.15.0"
@@ -21,9 +22,9 @@ splash-screen = "1.0.1"
 room = "2.6.1"
 hilt = "2.52"
 
-firebase-bom = "33.7.0"
-gms = "4.4.2"
 gson = "2.10.1"
+
+kotlinx-serialization-json = "1.7.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -55,9 +56,9 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit-version" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 
-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
-
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 
 [bundles]
 androidX = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx"]
@@ -73,8 +74,7 @@ room = ["room-runtime", "room-ktx"]
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-serialization" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-gms = { id = "com.google.gms.google-services", version.ref = "gms" }
-

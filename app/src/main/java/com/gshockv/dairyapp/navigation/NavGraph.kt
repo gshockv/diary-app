@@ -85,9 +85,9 @@ private fun NavGraphBuilder.homeRoute(
 private fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
   composable<WriteRoute> { backStackEntry ->
     val route: WriteRoute = backStackEntry.toRoute()
-    Log.d("NAV", "ID for edit = ${route.id}")
 
     WriteScreen(
+      selectedDiaryId = route.id,
       onDeleteConfirmed = {},
       onBackPressed = onBackPressed
     )

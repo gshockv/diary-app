@@ -12,7 +12,7 @@ interface DiaryDao {
   fun observeAll(): Flow<List<Diary>>
 
   @Query("SELECT * FROM diary WHERE id = :diaryId")
-  fun load(diaryId: Int): Flow<Diary>
+  suspend fun load(diaryId: Int): Diary?
 
   @Upsert
   suspend fun upsert(diary: Diary)

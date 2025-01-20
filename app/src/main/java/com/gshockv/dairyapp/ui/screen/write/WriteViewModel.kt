@@ -1,36 +1,90 @@
 package com.gshockv.dairyapp.ui.screen.write
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gshockv.dairyapp.data.Diary
 import com.gshockv.dairyapp.data.DiaryRepository
 import com.gshockv.dairyapp.data.Mood
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 data class UiState(
   val selectedDiaryId: Int = 0,
-  val title: String = "",
-  val description: String = "",
-  val mood: Mood = Mood.Neutral
+  val diary: Diary = prepareNewDiary()
 )
 
 @HiltViewModel
 class WriteViewModel @Inject constructor(
   private val repository: DiaryRepository
 ): ViewModel() {
-  private val _uiState = MutableStateFlow(
-    UiState(
 
-    )
-  )
+  private val _uiState = MutableStateFlow(UiState())
+
   val uiState = _uiState.asStateFlow()
 
-  //private val _diaryId
-
-  fun setDiaryId(id: Int) {
-
+  fun loadDiaryDetails(id: Int) {
+    if (id == 0) {
+      _uiState.update { current ->
+        current.copy(
+          diary = prepareNewDiary()
+        )
+      }
+    } else {
+      viewModelScope.launch {
+        repository.loadDetails(id)?.let {
+          _uiState.update { current ->
+            current.copy(
+              selectedDiaryId = id,
+              diary = it,
+            )
+          }
+        }
+      }
+    }
   }
 
+  fun setTitle(title: String) {
+    _uiState.update { current ->
+      current.copy(
+        diary = _uiState.value.diary.copy(
+          title = title
+        )
+      )
+    }
+  }
 
+  fun setDescription(description: String) {
+    _uiState.update { current ->
+      current.copy(
+        diary = _uiState.value.diary.copy(
+          description = description
+        )
+      )
+    }
+  }
+
+  fun setMood(mood: Mood) {
+    _uiState.update { current ->
+      current.copy(
+        diary = _uiState.value.diary.copy(
+          mood = mood
+        )
+      )
+    }
+  }
 }
+
+private fun prepareNewDiary() =
+  Diary(
+    id = 0,
+    title = "",
+    description = "",
+    mood = Mood.Neutral,
+    images = emptyList(),
+    date = LocalDateTime.now()
+  )

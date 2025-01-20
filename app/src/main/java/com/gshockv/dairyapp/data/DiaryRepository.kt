@@ -2,8 +2,9 @@ package com.gshockv.dairyapp.data
 
 import com.gshockv.dairyapp.util.RequestState
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
@@ -24,6 +25,15 @@ class DiaryRepository @Inject constructor(private val diaryDao: DiaryDao) {
       }
 
     //return diaryDao.observeAll()
+  }
+
+  suspend fun loadDetails(id: Int): Diary? {
+    return testDiaries()
+      .asFlow()
+      .filter { it.id == id }
+      .firstOrNull()
+
+    // return diaryDao.load(diaryId = id)
   }
 }
 

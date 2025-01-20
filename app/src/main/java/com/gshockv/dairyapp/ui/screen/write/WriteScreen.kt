@@ -6,6 +6,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,6 +33,9 @@ fun WriteScreen(
   val moodPagerState = rememberPagerState(pageCount = {
     Mood.entries.size
   })
+  val moodPageIndex by remember {
+    derivedStateOf { moodPagerState.currentPage }
+  }
 
   LaunchedEffect(uiState.value.diary.mood) {
     moodPagerState.scrollToPage(uiState.value.diary.mood.ordinal)
@@ -38,7 +44,8 @@ fun WriteScreen(
   Scaffold(
     topBar = {
       WriteTopBar(
-        selectedDiary = null /*diary.value*/,
+        selectedDiary = uiState.value.diary,
+        moodName = { Mood.entries[moodPageIndex].name },
         onDeleteConfirmed = onDeleteConfirmed,
         onBackPressed = onBackPressed
       )

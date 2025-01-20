@@ -2,7 +2,6 @@ package com.gshockv.dairyapp.ui.screen.write
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -32,18 +31,35 @@ import com.gshockv.dairyapp.data.Diary
 import com.gshockv.dairyapp.data.Mood
 import com.gshockv.dairyapp.ui.component.DisplayAlertDialog
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WriteTopBar(
-  selectedDiary: Diary?,
+  selectedDiary: Diary,
+  moodName: () -> String,
   onDeleteConfirmed: () -> Unit,
   onBackPressed: () -> Unit
 ) {
 
-  val titleExtraPadding = remember(selectedDiary != null) {
-    if (selectedDiary != null) 36.dp else 0.dp
+  val currentDate by remember { mutableStateOf(LocalDate.now()) }
+  val currentTime by remember { mutableStateOf(LocalTime.now()) }
+  val formattedDate = remember(currentDate) {
+    currentDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")).uppercase()
+  }
+  val formattedTime = remember(currentTime) {
+    currentTime.format(DateTimeFormatter.ofPattern("HH:mm")).uppercase()
+  }
+
+  val selectedDiaryDateTime = remember(selectedDiary) {
+    selectedDiary.date.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm")).uppercase()
+  }
+
+  val titleExtraPadding = remember(selectedDiary.id > 0) {
+    if (selectedDiary.id > 0) 36.dp else 0.dp
   }
 
   CenterAlignedTopAppBar(
@@ -62,13 +78,13 @@ fun WriteTopBar(
       ) {
         Text(
           modifier = Modifier.fillMaxWidth(),
-          text = "Mood",
+          text = moodName(),
           style = MaterialTheme.typography.titleLarge,
           textAlign = TextAlign.Center
         )
         Text(
           modifier = Modifier.fillMaxWidth(),
-          text = "14 NOV 2025, 10:12",
+          text = if (selectedDiary.id > 0) selectedDiaryDateTime else "$formattedDate, $formattedTime",
           style = MaterialTheme.typography.bodySmall,
           textAlign = TextAlign.Center
         )
@@ -83,7 +99,7 @@ fun WriteTopBar(
         )
       }
 
-      selectedDiary?.let {
+      if (selectedDiary.id > 0) {
         DeleteDiaryAction(
           selectedDiary = selectedDiary,
           onDeleteConfirmed = onDeleteConfirmed
@@ -137,6 +153,7 @@ private fun PreviewWriteTopBap_LightTheme() {
   DiaryAppTheme {
     Surface {
       WriteTopBar(
+        moodName = { "Mood Name" },
         selectedDiary = Diary(
           id = 42,
           title = "Test Diary",

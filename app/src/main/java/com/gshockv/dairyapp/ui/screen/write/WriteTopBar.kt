@@ -6,11 +6,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,9 +28,7 @@ import com.gshockv.dairyapp.data.Diary
 import com.gshockv.dairyapp.data.Mood
 import com.gshockv.dairyapp.ui.component.DisplayAlertDialog
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
-import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,21 +40,12 @@ fun WriteTopBar(
   onBackPressed: () -> Unit
 ) {
 
-  val currentDate by remember { mutableStateOf(LocalDate.now()) }
-  val currentTime by remember { mutableStateOf(LocalTime.now()) }
-  val formattedDate = remember(currentDate) {
-    currentDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy")).uppercase()
-  }
-  val formattedTime = remember(currentTime) {
-    currentTime.format(DateTimeFormatter.ofPattern("HH:mm")).uppercase()
-  }
-
   val selectedDiaryDateTime = remember(selectedDiary) {
     selectedDiary.date.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm")).uppercase()
   }
 
   val titleExtraPadding = remember(selectedDiary.id > 0) {
-    if (selectedDiary.id > 0) 36.dp else 0.dp
+    if (selectedDiary.id > 0) 46.dp else 0.dp
   }
 
   CenterAlignedTopAppBar(
@@ -73,7 +59,7 @@ fun WriteTopBar(
     },
     title = {
       Column(
-        modifier = Modifier.fillMaxWidth().padding(start = titleExtraPadding),
+        modifier = Modifier.fillMaxWidth().padding(end = titleExtraPadding),
         horizontalAlignment = Alignment.End
       ) {
         Text(
@@ -84,65 +70,43 @@ fun WriteTopBar(
         )
         Text(
           modifier = Modifier.fillMaxWidth(),
-          text = if (selectedDiary.id > 0) selectedDiaryDateTime else "$formattedDate, $formattedTime",
+          text = selectedDiaryDateTime,
           style = MaterialTheme.typography.bodySmall,
           textAlign = TextAlign.Center
         )
       }
     },
     actions = {
-      IconButton(onClick = {}) {
-        Icon(
-          imageVector = Icons.Default.DateRange,
-          contentDescription = "Date Icon",
-          tint = MaterialTheme.colorScheme.onSurface
-        )
-      }
-
-      if (selectedDiary.id > 0) {
-        DeleteDiaryAction(
-          selectedDiary = selectedDiary,
-          onDeleteConfirmed = onDeleteConfirmed
-        )
-      }
+      DeleteDiaryAction(
+        selectedDiary = selectedDiary,
+        onDeleteConfirmed = onDeleteConfirmed
+      )
     }
   )
 }
 
 @Composable
 private fun DeleteDiaryAction(
-  selectedDiary: Diary?,
+  selectedDiary: Diary,
   onDeleteConfirmed: () -> Unit
 ) {
-  var expanded by remember { mutableStateOf(false) }
   var openDialog by remember { mutableStateOf(false) }
 
-  DropdownMenu(
-    expanded = expanded,
-    onDismissRequest = { expanded = false }
-  ) {
-    DropdownMenuItem(
-      text = {
-        Text(text = "Delete")
-      },
-      onClick = {
-        openDialog = true
-        expanded = false
-      }
-    )
-  }
   DisplayAlertDialog(
     title = "Delete",
-    message = "Delete this diary note '${selectedDiary?.title}'?",
+    message = "Delete this diary note '${selectedDiary.title}'?",
     dialogOpened = openDialog,
     onDialogClosed = { openDialog = false },
     onYesClicked = onDeleteConfirmed
   )
-  IconButton(onClick = { expanded = !expanded }) {
+
+  IconButton(
+    onClick = { openDialog = true },
+    enabled = selectedDiary.id > 0
+  ) {
     Icon(
-      imageVector = Icons.Default.MoreVert,
-      contentDescription = null,
-      tint = MaterialTheme.colorScheme.onSurface
+      imageVector = Icons.Default.Delete,
+      contentDescription = null
     )
   }
 }

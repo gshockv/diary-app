@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class DataTypeConverter {
-  private val dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+  private val dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
   @TypeConverter
   fun fromStringList(value: List<String>): String? {

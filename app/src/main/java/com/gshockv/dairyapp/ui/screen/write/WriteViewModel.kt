@@ -48,6 +48,18 @@ class WriteViewModel @Inject constructor(
     }
   }
 
+  fun saveDiary() {
+    viewModelScope.launch {
+      repository.saveDiary(_uiState.value.diary)
+    }
+  }
+
+  fun deleteDiary() {
+    viewModelScope.launch {
+      repository.deleteDiary(_uiState.value.diary)
+    }
+  }
+
   fun setTitle(title: String) {
     _uiState.update { current ->
       current.copy(

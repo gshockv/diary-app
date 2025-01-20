@@ -1,6 +1,5 @@
 package com.gshockv.dairyapp.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -88,7 +87,6 @@ private fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
 
     WriteScreen(
       selectedDiaryId = route.id,
-      onDeleteConfirmed = {},
       onBackPressed = onBackPressed
     )
   }

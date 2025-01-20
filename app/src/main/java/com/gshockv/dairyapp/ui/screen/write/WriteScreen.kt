@@ -18,7 +18,6 @@ import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 
 @Composable
 fun WriteScreen(
-  onDeleteConfirmed: () -> Unit,
   onBackPressed: () -> Unit,
   modifier: Modifier = Modifier,
   selectedDiaryId: Int = 0,
@@ -37,6 +36,10 @@ fun WriteScreen(
     derivedStateOf { moodPagerState.currentPage }
   }
 
+  LaunchedEffect(moodPageIndex) {
+    viewModel.setMood(Mood.entries[moodPageIndex])
+  }
+
   LaunchedEffect(uiState.value.diary.mood) {
     moodPagerState.scrollToPage(uiState.value.diary.mood.ordinal)
   }
@@ -46,7 +49,10 @@ fun WriteScreen(
       WriteTopBar(
         selectedDiary = uiState.value.diary,
         moodName = { Mood.entries[moodPageIndex].name },
-        onDeleteConfirmed = onDeleteConfirmed,
+        onDeleteConfirmed = {
+          viewModel.deleteDiary()
+          onBackPressed()
+        },
         onBackPressed = onBackPressed
       )
     }
@@ -56,6 +62,10 @@ fun WriteScreen(
       onTitleChanged = { viewModel.setTitle(it) },
       description = uiState.value.diary.description,
       onDescriptionChanged = { viewModel.setDescription(it) },
+      onSaveClick = {
+        viewModel.saveDiary()
+        onBackPressed()
+      },
       moodPagerState = moodPagerState,
       modifier = Modifier.padding(innerPadding)
     )
@@ -67,7 +77,6 @@ fun WriteScreen(
 private fun PreviewWriteScreen_LightTheme() {
   DiaryAppTheme {
     WriteScreen(
-      onDeleteConfirmed = {},
       onBackPressed = {
       }
     )
@@ -79,7 +88,6 @@ private fun PreviewWriteScreen_LightTheme() {
 private fun PreviewWriteScreen_DarkTheme() {
   DiaryAppTheme {
     WriteScreen(
-      onDeleteConfirmed = {},
       onBackPressed = {
       },
     )

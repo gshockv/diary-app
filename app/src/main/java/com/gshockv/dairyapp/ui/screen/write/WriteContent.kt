@@ -1,6 +1,7 @@
 package com.gshockv.dairyapp.ui.screen.write
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,10 +44,11 @@ fun WriteContent(
   onTitleChanged: (String) -> Unit,
   description: String,
   onDescriptionChanged: (String) -> Unit,
+  onSaveClick: () -> Unit,
   moodPagerState: PagerState,
   modifier: Modifier = Modifier
 ) {
-
+  val context = LocalContext.current
   val scrollState = rememberScrollState()
 
   Column(
@@ -135,7 +138,17 @@ fun WriteContent(
     ) {
       Spacer(modifier = Modifier.height(12.dp))
       Button(
-        onClick = {},
+        onClick = {
+          if (title.isNotEmpty() && description.isNotEmpty()) {
+            onSaveClick()
+          } else {
+            Toast.makeText(
+              context,
+              "Fields are empty",
+              Toast.LENGTH_SHORT
+            ).show()
+          }
+        },
         modifier = Modifier
           .fillMaxWidth()
           .height(54.dp),
@@ -159,7 +172,8 @@ private fun PreviewWriteContent_LightTheme() {
         onTitleChanged = {},
         description = "",
         onDescriptionChanged = {},
-        moodPagerState = rememberPagerState(pageCount = { Mood.entries.size })
+        moodPagerState = rememberPagerState(pageCount = { Mood.entries.size }),
+        onSaveClick = {}
       )
     }
   }
@@ -175,7 +189,8 @@ private fun PreviewWriteContent_DarkTheme() {
         onTitleChanged = {},
         description = "",
         onDescriptionChanged = {},
-        moodPagerState = rememberPagerState(pageCount = { Mood.entries.size })
+        moodPagerState = rememberPagerState(pageCount = { Mood.entries.size }),
+        onSaveClick = {}
       )
     }
   }

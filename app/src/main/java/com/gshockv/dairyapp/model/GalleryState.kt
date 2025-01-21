@@ -29,5 +29,6 @@ class GalleryState {
 }
 
 data class GalleryImage(
+  val drawableId: Int,
   val image: Uri
 )

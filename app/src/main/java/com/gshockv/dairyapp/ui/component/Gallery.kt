@@ -1,5 +1,7 @@
 package com.gshockv.dairyapp.ui.component
 
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -27,13 +29,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -41,7 +41,6 @@ import coil.request.ImageRequest
 import com.gshockv.dairyapp.R
 import com.gshockv.dairyapp.model.GalleryImage
 import com.gshockv.dairyapp.model.GalleryState
-import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 import com.gshockv.dairyapp.ui.theme.Elevation
 import kotlin.math.max
 
@@ -107,10 +106,14 @@ fun GalleryUploader(
   onImageSelect: (Uri) -> Unit,
   onImageClick: (GalleryImage) -> Unit
 ) {
+  val context = LocalContext.current
+
   val multiplePhotoPicker = rememberLauncherForActivityResult(
     contract = ActivityResultContracts.PickMultipleVisualMedia(maxItems = 4)
   ) { images ->
     images.forEach {
+      val flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+      context.applicationContext.contentResolver.takePersistableUriPermission(it, flags)
       onImageSelect(it)
     }
   }
@@ -155,7 +158,7 @@ fun GalleryUploader(
             .size(imageSize)
             .clickable { onImageClick(galleryImage) },
           model = ImageRequest.Builder(LocalContext.current)
-            .data(galleryImage.image)
+            .data(galleryImage.drawableId)
             .crossfade(true)
             .build(),
           contentScale = ContentScale.Crop,
@@ -226,17 +229,6 @@ private fun LastImageOverlay(
   }
 }
 
-@Composable
-@Preview(showBackground = true)
-private fun PreviewGallery() {
-  DiaryAppTheme {
-    Surface {
-      Gallery(
-        images = galleryTestImages
-      )
-    }
-  }
-}
 
 val galleryTestImages = listOf(
   R.drawable.img_test_bg_1,

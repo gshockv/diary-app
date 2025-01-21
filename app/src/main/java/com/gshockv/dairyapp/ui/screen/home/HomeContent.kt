@@ -1,6 +1,7 @@
 package com.gshockv.dairyapp.ui.screen.home
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -36,6 +37,9 @@ fun HomeContent(
           items = diaries,
           key = { it.id }
         ) {
+
+          Log.d("HOME", "Diary = $it")
+
           DiaryHolder(
             diary = it,
             onClick = openDiary

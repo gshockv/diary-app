@@ -1,6 +1,7 @@
 package com.gshockv.dairyapp.ui.component
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -25,6 +26,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -61,6 +63,8 @@ fun DiaryHolder(
   var galleryOpened by remember {
     mutableStateOf(false)
   }
+
+  Log.d("D-HOLDER", "D-HOLDER = $diary")
 
   Row(
     modifier = modifier

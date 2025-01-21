@@ -1,6 +1,7 @@
 package com.gshockv.dairyapp.ui.screen.write
 
 import android.content.res.Configuration
+import android.net.Uri
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
@@ -16,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gshockv.dairyapp.model.GalleryImage
 import com.gshockv.dairyapp.model.Mood
 import com.gshockv.dairyapp.model.rememberGalleryState
+import com.gshockv.dairyapp.model.testImages
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 
 @Composable
@@ -47,6 +49,17 @@ fun WriteScreen(
     moodPagerState.scrollToPage(uiState.value.diary.mood.ordinal)
   }
 
+  LaunchedEffect(uiState.value.diary) {
+    uiState.value.diary.testImages.forEach {
+      galleryState.addImage(
+        GalleryImage(
+        drawableId = it,
+        image = Uri.EMPTY
+      )
+      )
+    }
+  }
+
   Scaffold(
     topBar = {
       WriteTopBar(
@@ -66,6 +79,7 @@ fun WriteScreen(
       description = uiState.value.diary.description,
       onDescriptionChanged = { viewModel.setDescription(it) },
       onSaveClick = {
+        viewModel.setGalleryImages(galleryState.images)
         viewModel.saveDiary()
         onBackPressed()
       },
@@ -73,7 +87,10 @@ fun WriteScreen(
       galleryState = galleryState,
       modifier = Modifier.padding(innerPadding),
       onImageSelect = { uri ->
-        galleryState.addImage(GalleryImage(uri))
+        galleryState.addImage(GalleryImage(
+          drawableId = 0,
+          image = uri
+        ))
       }
     )
   }

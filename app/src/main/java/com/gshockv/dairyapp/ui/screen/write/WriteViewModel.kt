@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gshockv.dairyapp.model.Diary
 import com.gshockv.dairyapp.data.DiaryRepository
+import com.gshockv.dairyapp.model.GalleryImage
 import com.gshockv.dairyapp.model.Mood
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 data class UiState(
   val selectedDiaryId: Int = 0,
-  val diary: Diary = prepareNewDiary()
+  val diary: Diary = prepareEmptyDiary()
 )
 
 @HiltViewModel
@@ -31,7 +32,7 @@ class WriteViewModel @Inject constructor(
     if (id == 0) {
       _uiState.update { current ->
         current.copy(
-          diary = prepareNewDiary()
+          diary = prepareEmptyDiary()
         )
       }
     } else {
@@ -89,9 +90,21 @@ class WriteViewModel @Inject constructor(
       )
     }
   }
+
+  fun setGalleryImages(galleryImages: List<GalleryImage>) {
+    val images = galleryImages.map { it.image.toString() }
+
+    _uiState.update { current ->
+      current.copy(
+        diary = _uiState.value.diary.copy(
+          images = images
+        )
+      )
+    }
+  }
 }
 
-private fun prepareNewDiary() =
+private fun prepareEmptyDiary() =
   Diary(
     id = 0,
     title = "",

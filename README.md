@@ -15,6 +15,6 @@ Simple Diary Android App was built with Jetpack Compose due to Jetpack Compose's
 <img src="https://github.com/gshockv/diary-app/blob/main/screenshots/new_diary_light.png" height="520" />&nbsp;&nbsp;
 <img src="https://github.com/gshockv/diary-app/blob/main/screenshots/edit_diary_light.png" height="520" />
 
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/diaries_list_dark.png" height="640" />&nbsp;
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/edit_diary_dark.png" height="640" />&nbsp;
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/empty.png" height="640" />
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/diaries_list_dark.png" height="520" />&nbsp;
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/edit_diary_dark.png" height="520" />&nbsp;
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/empty.png" height="520" />

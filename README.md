@@ -11,10 +11,12 @@ Simple Diary Android App was built with Jetpack Compose due to Jetpack Compose's
 
 ## App screenshots
 
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/diaries_list_light.png" height="520" />&nbsp;&nbsp;
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/new_diary_light.png" height="520" />&nbsp;&nbsp;
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/edit_diary_light.png" height="520" />
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/signin_light.png" height="440" />&nbsp;&nbsp;
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/diaries_list_light.png" height="440" />&nbsp;&nbsp;
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/new_diary_light.png" height="440" />&nbsp;&nbsp;
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/edit_diary_light.png" height="440" />
 
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/diaries_list_dark.png" height="520" />&nbsp;&nbsp;
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/edit_diary_dark.png" height="520" />&nbsp;&nbsp;
-<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/empty.png" height="520" />
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/signin_dark.png" height="440" />&nbsp;&nbsp;
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/diaries_list_dark.png" height="440" />&nbsp;&nbsp;
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/edit_diary_dark.png" height="440" />&nbsp;&nbsp;
+<img src="https://github.com/gshockv/diary-app/blob/main/screenshots/empty.png" height="440" />

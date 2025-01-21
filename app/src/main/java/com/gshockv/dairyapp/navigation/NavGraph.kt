@@ -40,7 +40,9 @@ private fun SetupNavGraph(
     startDestination = HomeRoute,
     navController = navController
   ) {
-    authRoute()
+    authRoute(
+      onDataLoaded = onDataLoaded
+    )
     homeRoute(
       openNewDiaryEditor = {
         navController.navigate(WriteRoute(id = 0))
@@ -58,11 +60,14 @@ private fun SetupNavGraph(
   }
 }
 
-private fun NavGraphBuilder.authRoute() {
+private fun NavGraphBuilder.authRoute(
+   onDataLoaded: () -> Unit
+) {
   composable<AuthRoute> {
     AuthScreen(
       loadingState = false,
-      onButtonClicked = { }
+      onButtonClicked = { },
+      onDataLoaded = onDataLoaded
     )
   }
 }

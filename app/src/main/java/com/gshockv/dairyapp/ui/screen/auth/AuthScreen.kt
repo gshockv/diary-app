@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
@@ -15,9 +17,14 @@ import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 @Composable
 fun AuthScreen(
   loadingState: Boolean,
+  onDataLoaded: () -> Unit,
   onButtonClicked: () -> Unit,
   modifier: Modifier = Modifier
 ) {
+  SideEffect {
+    onDataLoaded()
+  }
+
   Scaffold(
     modifier = modifier
       .background(MaterialTheme.colorScheme.surface)

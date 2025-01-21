@@ -1,6 +1,7 @@
 package com.gshockv.dairyapp.data
 
-import com.gshockv.dairyapp.util.RequestState
+import com.gshockv.dairyapp.model.Diary
+import com.gshockv.dairyapp.model.RequestState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate

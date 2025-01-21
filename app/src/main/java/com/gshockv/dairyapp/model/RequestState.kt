@@ -1,4 +1,4 @@
-package com.gshockv.dairyapp.util
+package com.gshockv.dairyapp.model
 
 sealed class RequestState<out T> {
   object Idle: RequestState<Nothing>()

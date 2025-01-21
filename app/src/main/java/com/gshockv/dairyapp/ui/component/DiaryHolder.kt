@@ -40,9 +40,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gshockv.dairyapp.R
-import com.gshockv.dairyapp.data.Diary
-import com.gshockv.dairyapp.data.Mood
-import com.gshockv.dairyapp.data.testImages
+import com.gshockv.dairyapp.model.Diary
+import com.gshockv.dairyapp.model.Mood
+import com.gshockv.dairyapp.model.testImages
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 import com.gshockv.dairyapp.ui.theme.Elevation
 import java.time.LocalDateTime

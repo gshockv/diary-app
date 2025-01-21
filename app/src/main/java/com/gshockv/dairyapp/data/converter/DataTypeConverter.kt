@@ -3,7 +3,7 @@ package com.gshockv.dairyapp.data.converter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.gshockv.dairyapp.data.Mood
+import com.gshockv.dairyapp.model.Mood
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

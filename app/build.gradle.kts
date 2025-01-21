@@ -50,6 +50,8 @@ dependencies {
   implementation(libs.bundles.compose)
   implementation(libs.splash.screen)
 
+  implementation(libs.coil)
+
   // hilt
   implementation(libs.bundles.hilt)
   ksp(libs.hilt.compiler)

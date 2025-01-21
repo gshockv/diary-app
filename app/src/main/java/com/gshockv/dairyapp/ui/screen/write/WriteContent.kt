@@ -1,6 +1,7 @@
 package com.gshockv.dairyapp.ui.screen.write
 
 import android.content.res.Configuration
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -40,17 +41,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gshockv.dairyapp.data.Mood
+import com.gshockv.dairyapp.model.GalleryState
+import com.gshockv.dairyapp.model.Mood
+import com.gshockv.dairyapp.model.rememberGalleryState
+import com.gshockv.dairyapp.ui.component.GalleryUploader
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 
 @Composable
 fun WriteContent(
+  moodPagerState: PagerState,
+  galleryState: GalleryState,
   title: String,
   onTitleChanged: (String) -> Unit,
   description: String,
   onDescriptionChanged: (String) -> Unit,
+  onImageSelect: (Uri) -> Unit,
   onSaveClick: () -> Unit,
-  moodPagerState: PagerState,
   modifier: Modifier = Modifier
 ) {
   val context = LocalContext.current
@@ -152,6 +158,13 @@ fun WriteContent(
       verticalArrangement = Arrangement.Bottom
     ) {
       Spacer(modifier = Modifier.height(12.dp))
+      GalleryUploader(
+        galleryState = galleryState,
+        onAddClicked = {},
+        onImageSelect = onImageSelect,
+        onImageClick = {}
+      )
+      Spacer(modifier = Modifier.height(12.dp))
       Button(
         onClick = {
           if (title.isNotEmpty() && description.isNotEmpty()) {
@@ -188,7 +201,9 @@ private fun PreviewWriteContent_LightTheme() {
         description = "",
         onDescriptionChanged = {},
         moodPagerState = rememberPagerState(pageCount = { Mood.entries.size }),
-        onSaveClick = {}
+        onSaveClick = {},
+        galleryState = rememberGalleryState(),
+        onImageSelect = {}
       )
     }
   }
@@ -205,7 +220,9 @@ private fun PreviewWriteContent_DarkTheme() {
         description = "",
         onDescriptionChanged = {},
         moodPagerState = rememberPagerState(pageCount = { Mood.entries.size }),
-        onSaveClick = {}
+        onSaveClick = {},
+        galleryState = rememberGalleryState(),
+        onImageSelect = {}
       )
     }
   }

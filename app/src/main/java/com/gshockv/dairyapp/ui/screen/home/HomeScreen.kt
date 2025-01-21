@@ -23,9 +23,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gshockv.dairyapp.R
-import com.gshockv.dairyapp.data.Diary
+import com.gshockv.dairyapp.model.Diary
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
-import com.gshockv.dairyapp.util.RequestState
+import com.gshockv.dairyapp.model.RequestState
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)

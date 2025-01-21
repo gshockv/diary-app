@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
+import com.gshockv.dairyapp.model.Diary
 import kotlinx.coroutines.flow.Flow
 
 @Dao

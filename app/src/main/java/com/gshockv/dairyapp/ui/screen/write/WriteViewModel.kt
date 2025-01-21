@@ -2,9 +2,9 @@ package com.gshockv.dairyapp.ui.screen.write
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gshockv.dairyapp.data.Diary
+import com.gshockv.dairyapp.model.Diary
 import com.gshockv.dairyapp.data.DiaryRepository
-import com.gshockv.dairyapp.data.Mood
+import com.gshockv.dairyapp.model.Mood
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -2,6 +2,8 @@ package com.gshockv.dairyapp.data
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import com.gshockv.dairyapp.model.Diary
+import com.gshockv.dairyapp.model.Mood
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -10,7 +12,6 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import java.time.LocalDateTime
-import java.time.OffsetDateTime
 
 class DairyDaoTest {
   private lateinit var database: DiaryDatabase

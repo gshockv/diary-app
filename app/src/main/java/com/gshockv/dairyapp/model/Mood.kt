@@ -1,4 +1,4 @@
-package com.gshockv.dairyapp.data
+package com.gshockv.dairyapp.model
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color

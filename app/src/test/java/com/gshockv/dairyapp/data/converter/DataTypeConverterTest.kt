@@ -1,6 +1,6 @@
 package com.gshockv.dairyapp.data.converter
 
-import com.gshockv.dairyapp.data.Mood
+import com.gshockv.dairyapp.model.Mood
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test

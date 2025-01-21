@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.gshockv.dairyapp.data.converter.DataTypeConverter
+import com.gshockv.dairyapp.model.Diary
 
 @Database(
   entities = [Diary::class],

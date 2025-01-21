@@ -13,7 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.gshockv.dairyapp.data.Mood
+import com.gshockv.dairyapp.model.GalleryImage
+import com.gshockv.dairyapp.model.Mood
+import com.gshockv.dairyapp.model.rememberGalleryState
 import com.gshockv.dairyapp.ui.theme.DiaryAppTheme
 
 @Composable
@@ -24,6 +26,7 @@ fun WriteScreen(
   viewModel: WriteViewModel = hiltViewModel()
 ) {
   val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+  val galleryState = rememberGalleryState()
 
   LaunchedEffect(key1 = selectedDiaryId) {
     viewModel.loadDiaryDetails(selectedDiaryId)
@@ -67,7 +70,11 @@ fun WriteScreen(
         onBackPressed()
       },
       moodPagerState = moodPagerState,
-      modifier = Modifier.padding(innerPadding)
+      galleryState = galleryState,
+      modifier = Modifier.padding(innerPadding),
+      onImageSelect = { uri ->
+        galleryState.addImage(GalleryImage(uri))
+      }
     )
   }
 }

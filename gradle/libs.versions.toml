@@ -11,20 +11,20 @@ junit = "4.13.2"
 junit-version = "1.2.1"
 espresso-core = "3.6.1"
 
-compose-bom = "2024.12.01"
-compose-activity = "1.9.3"
+compose-bom = "2025.01.00"
+compose-activity = "1.10.0"
 compose-navigation = "2.8.5"
 compose-hilt-navigation = "1.2.0"
 compose-lifecycle = "2.8.7"
-
 splash-screen = "1.0.1"
 
 room = "2.6.1"
 hilt = "2.52"
 
 gson = "2.10.1"
-
 kotlinx-serialization-json = "1.7.3"
+
+coil = "2.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -43,6 +43,8 @@ compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4
 compose-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "compose-lifecycle" }
 
 splash-screen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splash-screen" }
+
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 hilt-core = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
